@@ -25,7 +25,8 @@ function highestValid(r: SpectrumReading) {
   let best: { wavelength: number; absorbance: number } | null = null;
   r.wavelengths.forEach((w, i) => {
     const a = r.absorbance[i];
-    if (a !== null && (best === null || a > best.absorbance)) best = { wavelength: w, absorbance: a };
+    if (a !== null && (best === null || a > best.absorbance))
+      best = { wavelength: w, absorbance: a };
   });
   return best;
 }
@@ -76,13 +77,24 @@ export default function SpectrumChart({ readings, height = 460 }: Props) {
 
       offScaleRanges(r).forEach(([a, b]) => {
         shapes.push({
-          type: 'rect', xref: 'x', yref: 'paper',
-          x0: a - step / 2, x1: b + step / 2, y0: 0, y1: 1,
-          fillcolor: 'rgba(85,102,111,0.13)', line: { width: 0 }, layer: 'below',
+          type: 'rect',
+          xref: 'x',
+          yref: 'paper',
+          x0: a - step / 2,
+          x1: b + step / 2,
+          y0: 0,
+          y1: 1,
+          fillcolor: 'rgba(85,102,111,0.13)',
+          line: { width: 0 },
+          layer: 'below',
         });
         annotations.push({
-          x: (a + b) / 2, xref: 'x', y: 0.97, yref: 'paper',
-          showarrow: false, yanchor: 'top',
+          x: (a + b) / 2,
+          xref: 'x',
+          y: 0.97,
+          yref: 'paper',
+          showarrow: false,
+          yanchor: 'top',
           text: readings.length > 1 ? `Off scale<br>(${r.label})` : 'Off scale',
           font: { size: 12, color: '#55666f' },
         });
@@ -108,8 +120,17 @@ export default function SpectrumChart({ readings, height = 460 }: Props) {
       modeBarButtonsToRemove: ['lasso2d', 'select2d'],
     });
 
-    return () => { Plotly.purge(el); }; // clean up when the component unmounts or data changes
+    return () => {
+      Plotly.purge(el);
+    }; // clean up when the component unmounts or data changes
   }, [readings]);
 
-  return <div ref={ref} style={{ width: '100%', height }} role="img" aria-label="Absorbance versus wavelength chart" />;
+  return (
+    <div
+      ref={ref}
+      style={{ width: '100%', height }}
+      role="img"
+      aria-label="Absorbance versus wavelength chart"
+    />
+  );
 }

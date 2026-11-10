@@ -1,22 +1,43 @@
 {
-  "name": "viz-sandbox",
+  "name": "excalisys-agricultural-sensor-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Privacy-first, browser-local agricultural sensor analysis application.",
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
+  },
+  "overrides": {
+    "minimatch": "^11.0.6"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run typecheck && vite build",
+    "typecheck": "tsc -b",
     "lint": "eslint .",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "preview": "vite preview"
   },
   "dependencies": {
+    "dexie": "^4.4.7",
+    "papaparse": "^5.7.0",
     "plotly.js-basic-dist-min": "^4.2.0",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-router": "^7.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.19.2",
+    "@types/papaparse": "^5.5.2",
     "@types/plotly.js-basic-dist-min": "^2.12.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -24,9 +45,13 @@
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
+    "fake-indexeddb": "^6.2.8",
     "globals": "^17.13.0",
+    "jsdom": "^27.4.0",
+    "prettier": "^3.9.10",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
-    "vite": "^8.3.6"
+    "vite": "^8.3.6",
+    "vitest": "^4.1.12"
   }
 }
